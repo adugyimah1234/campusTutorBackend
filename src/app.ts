@@ -69,3 +69,5 @@ app.use("/reviews", reviewRoutes);
 app.use("/contact", contactRoutes);
 
 app.use(errorHandler);
+
+export default app;
