@@ -5,7 +5,6 @@ import helmet from "helmet";
 import compression from "compression";
 import pinoHttp from "pino-http";
 import { env } from "./config/env";
-import { logger } from "./config/logger";
 import { apiRateLimiter } from "./middleware/rate-limit";
 import { errorHandler } from "./middleware/error-handler";
 import authRoutes from "./routes/auth";
@@ -25,7 +24,7 @@ import contactRoutes from "./routes/contact";
 
 export const app = express();
 
-app.use(pinoHttp({ logger }));
+app.use(pinoHttp());
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" },

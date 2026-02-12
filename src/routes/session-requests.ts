@@ -8,6 +8,7 @@ import { validate } from "../middleware/validate";
 import { query } from "../db";
 import { badRequest, notFound } from "../utils/http";
 import { pool } from "../db/pool";
+import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import { createNotification } from "../services/notification-service";
 import { sendSessionRequestEmails, sendSessionStatusEmails } from "../utils/mailer";
 import { env } from "../config/env";
@@ -30,7 +31,7 @@ type PreferredDateSlot = {
   endTime: string;
 };
 
-type SessionRequestRow = {
+type SessionRequestRow = RowDataPacket & {
   id: string;
   tutor_id: string;
   tutee_id: string;
@@ -42,9 +43,9 @@ type SessionRequestRow = {
   status: string;
 };
 
-type TutorProfileIdRow = { id: string };
-type ConflictRow = { id: string };
-type UpdateResult = { affectedRows: number };
+type TutorProfileIdRow = RowDataPacket & { id: string };
+type ConflictRow = RowDataPacket & { id: string };
+type UpdateResult = Pick<ResultSetHeader, "affectedRows">;
 
 const parseSlot = (slot: PreferredDateSlot) => {
   const start = new Date(`${slot.date}T${slot.startTime}`);

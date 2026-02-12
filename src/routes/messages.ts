@@ -157,7 +157,7 @@ router.post("/threads/:id", requireAuth, requireVerified, validate(sendMessageSc
       { conversation_id: conversationId, sender_id: userId, content: req.body.content }
     );
     const peerId = record.participant_one === userId ? record.participant_two : record.participant_one;
-    const senderName = await query<{ display_name: string | null; first_name: string; last_name: string }>(
+    const senderName = await query<{ display_name: string | null; first_name: string; last_name: string }[]>(
       "SELECT display_name, first_name, last_name FROM profiles WHERE user_id = :user_id",
       { user_id: userId }
     );
