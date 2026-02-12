@@ -24,6 +24,7 @@ import contactRoutes from "./routes/contact";
 
 export const app = express();
 
+app.set("trust proxy", 1);
 app.use(pinoHttp());
 app.use(
   helmet({
